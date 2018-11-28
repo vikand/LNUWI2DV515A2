@@ -1,0 +1,52 @@
+﻿@page
+@model BlogClustering.WebApp.Pages.KMeansClusteringModel
+
+<h2>K-means Clustering</h2>
+
+<form method="post">
+
+    <div class="form-group">
+        <label for="user">Number of clusters:</label>
+        <select asp-for="NumberOfClusters" class="form-control">
+            <option value="2" @(Model.NumberOfClusters == 2 ? "selected" : "")>2</option>
+            <option value="5" @(Model.NumberOfClusters == 5 ? "selected" : "") selected>5</option>
+            <option value="10" @(Model.NumberOfClusters == 10 ? "selected" : "")>10</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="user">Number of iterations:</label>
+        <select asp-for="NumberOfIterations" class="form-control">
+            <option value="1" @(Model.NumberOfClusters == 1 ? "selected" : "")>1</option>
+            <option value="5" @(Model.NumberOfClusters == 5 ? "selected" : "")>5</option>
+            <option value="10" @(Model.NumberOfClusters == 10 ? "selected" : "")>10</option>
+            <option value="100" @(Model.NumberOfClusters == 100 ? "selected" : "")>100</option>
+            <option value="-1"  @(Model.NumberOfClusters == -1 ? "selected" : "")>Dynamic</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cluster Blogs</button>
+
+</form>
+
+@if (Model.Cluster != null)
+{
+    <hr />
+    <p>
+        Duration: @(Model.Duration)
+    </p>
+    <ul id="treeview">
+        @foreach (var centroid in Model.Cluster)
+        {
+            <li>
+                <span class="cluster glyphicon glyphicon-folder-open"></span>
+                <ul class="nested active">
+                    @foreach (var blog in centroid.Blogs)
+                    {
+                        <li>&bullet; @blog.Name</li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+}

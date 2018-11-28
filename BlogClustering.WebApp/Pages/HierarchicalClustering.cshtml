@@ -1,0 +1,25 @@
+﻿@page
+@model BlogClustering.WebApp.Pages.HierarchicalClusteringModel
+
+<h2>Hierarchical Clustering</h2>
+
+<form method="post">
+    <div class="form-group">
+        <div class="checkbox">
+            <label><input asp-for="UseCache" type="checkbox">Use cache</label>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cluster Blogs</button>
+</form>
+
+@if (Model.Cluster != null)
+{
+    <hr/>
+    <p>
+        Duration: @(Model.Duration)
+    </p>
+    <ul id="treeview">
+        @await Html.PartialAsync("_Cluster", Model.Cluster)
+    </ul>
+}

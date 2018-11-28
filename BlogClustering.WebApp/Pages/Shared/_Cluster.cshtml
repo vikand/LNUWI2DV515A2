@@ -1,0 +1,17 @@
+﻿@model BlogClustering.Entities.Cluster
+
+@if (Model.Left != null)
+{
+<li><span class="cluster glyphicon glyphicon-folder-open"></span>
+    <ul class="nested active">
+        @await Html.PartialAsync("_Cluster", Model.Left)
+        @await Html.PartialAsync("_Cluster", Model.Right)
+    </ul>
+</li>
+}
+else
+{
+<li>
+    &bullet; @Model.Blog.Name
+</li>
+}
